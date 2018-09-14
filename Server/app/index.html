@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="plyr.css">
+    <title>OpenStream</title>
+  </head>
+  <body>
+    <div class="content"> 
+      <h1>Open<span class="logo-green">Stream</span></h1>
+      <p>To start streaming, please download mobile app and follow instructions inside!</p>
+      <div class="container">
+        <button id="connectbutton" class="button" onclick="connect();">Connect</button>
+      </div>
+      <br>
+      <div id="video" class="container"></div>
+      <p id="infotext" style="color: #5f6060">Not connected!</p>
+    </div>
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="plyr.polyfilled.js"></script>
+    <script>const player = new Plyr('#player');</script>
+    <script src="server.js"></script>
+  </body>
+</html>
