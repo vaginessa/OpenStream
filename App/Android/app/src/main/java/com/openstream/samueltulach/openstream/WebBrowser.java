@@ -1,12 +1,20 @@
 package com.openstream.samueltulach.openstream;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.EditText;
 
 public class WebBrowser extends AppCompatActivity {
 
     WebView webView;
+    String urltext = "https://github.com/SamuelTulach/OpenStream/blob/master/Other/welcome.md";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +22,50 @@ public class WebBrowser extends AppCompatActivity {
         setContentView(R.layout.activity_web_browser);
 
         webView = (WebView) findViewById(R.id.webview);
-        webView.loadUrl("https://github.com/SamuelTulach/OpenStream");
+        webView.setWebViewClient(new WebViewClient()
+        {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url)
+            {
+                return true;
+            }
+        });
+
+        webView.loadUrl(urltext);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.browsermenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.changeurl) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Type in URL:");
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText("https://");
+            builder.setView(input);
+            builder.setPositiveButton("Do it", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    urltext = input.getText().toString();
+                    webView.loadUrl(urltext);
+                }
+            });
+            builder.setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
