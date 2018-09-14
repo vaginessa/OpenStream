@@ -57,7 +57,7 @@ function check() {
 }
 
 function play() {
-    video.innerHTML = "<video poster='/path/to/poster.jpg' id='player' playsinline controls><source src='" + videourl + "' type='video/mp4'></video>";
+    video.innerHTML = "<video id='player' playsinline controls><source src='" + videourl + "' type='video/mp4'></video>";
     var player = new Plyr('#player');
     player.play();
 }
