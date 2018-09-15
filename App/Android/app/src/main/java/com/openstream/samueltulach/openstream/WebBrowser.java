@@ -72,7 +72,7 @@ public class WebBrowser extends AppCompatActivity {
         } else if (id == R.id.refresh) {
             webView.reload();
         } else if (id == R.id.search) {
-            webView.loadUrl("javascript:var sources = document.getElementsByTagName(\"source\");var final = \"<p>Please click on video you want to play:</p><br>\";var script = \"<script>function play(link) {window.JSInterface.playVideo(link);}</script>\"for (var i = 0;i<sources.length;i++) {    final += \"<a href='#' onclick='play(this.innerHTML);'>\" + sources[i].src + \"</a><br>\";}document.write(script + final);");
+            webView.loadUrl("javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://rawgithub.com/SamuelTulach/OpenStream/master/App/Other/SearchForVideos.js';})();");
         }
         return super.onOptionsItemSelected(item);
     }

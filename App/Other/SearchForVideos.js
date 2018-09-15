@@ -5,4 +5,4 @@ var script = "<script>function play(link) {window.JSInterface.playVideo(link);}<
 for (var i = 0;i<sources.length;i++) {
     final += "<a href='#' onclick='play(this.innerHTML);'>" + sources[i].src + "</a><br>";
 }
-document.write(script + final);
+document.body.innerHTML = script + final;
