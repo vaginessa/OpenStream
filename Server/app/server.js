@@ -44,7 +44,7 @@ function connect() {
 }
 
 function check() {
-    var request = $.get("http://" + phoneip + "/", function(data) {
+    var request = $.get("http://" + phoneip + ":8080/", function(data) {
         log("Response from " + phoneip + " " + data);
         if (videourl !== data) {
             videourl = data;

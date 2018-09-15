@@ -27,10 +27,14 @@ public class WebBrowser extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url)
             {
+                webView.loadUrl(url);
                 return true;
             }
         });
+        webView.getSettings().setJavaScriptEnabled(true);
 
+        JSInterface j = new JSInterface(webView);
+        webView.addJavascriptInterface(j, "JSInterface");
         webView.loadUrl(urltext);
     }
 
@@ -65,6 +69,10 @@ public class WebBrowser extends AppCompatActivity {
                 }
             });
             builder.show();
+        } else if (id == R.id.refresh) {
+            webView.reload();
+        } else if (id == R.id.search) {
+            webView.loadUrl("javascript:var sources = document.getElementsByTagName(\"source\");var final = \"<p>Please click on video you want to play:</p><br>\";var script = \"<script>function play(link) {window.JSInterface.playVideo(link);}</script>\"for (var i = 0;i<sources.length;i++) {    final += \"<a href='#' onclick='play(this.innerHTML);'>\" + sources[i].src + \"</a><br>\";}document.write(script + final);");
         }
         return super.onOptionsItemSelected(item);
     }

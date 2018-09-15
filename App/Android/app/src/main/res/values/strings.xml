@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OpenStream</string>
     <string name="welcometext">Welcome in OpenStream!\nTo start streaming, please select one of options bellow. Keep in mind that you can stream only mp4 videos or videos supported by receiver browser!</string>
+    <string name="stop">Stop</string>
 </resources>
