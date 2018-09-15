@@ -1,8 +1,12 @@
 package com.openstream.samueltulach.openstream;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -23,6 +27,7 @@ public class StreamActivity extends AppCompatActivity {
 
     TextView textView;
     TextView textViewInfo;
+    Server s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,10 @@ public class StreamActivity extends AppCompatActivity {
             }
         }).start();*/
 
-        Server s= new Server();
+        s = new Server();
         try {
             s.ipadress = getIPAddress(true);
+            s.video = intent.getExtras().getString("FILE");
             s.start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,5 +85,17 @@ public class StreamActivity extends AppCompatActivity {
             }
         } catch (Exception ignored) { }
         return "";
+    }
+
+    public void stopStream(View v) {
+        s.stop();
+
+        // Bacause restart it the way
+        Intent mStartActivity = new Intent(this, MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
     }
 }

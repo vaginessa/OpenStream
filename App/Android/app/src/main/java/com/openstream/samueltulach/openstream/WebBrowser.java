@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -35,6 +36,8 @@ public class WebBrowser extends AppCompatActivity {
 
         JSInterface j = new JSInterface(webView);
         webView.addJavascriptInterface(j, "JSInterface");
+        webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); // RIP HTTPS
+
         webView.loadUrl(urltext);
     }
 
@@ -72,7 +75,7 @@ public class WebBrowser extends AppCompatActivity {
         } else if (id == R.id.refresh) {
             webView.reload();
         } else if (id == R.id.search) {
-            webView.loadUrl("javascript:(function(){document.body.appendChild(document.createElement('script')).src='https://rawgithub.com/SamuelTulach/OpenStream/master/App/Other/SearchForVideos.js';})();");
+            webView.loadUrl("javascript:%20(function(){var%20e={eval:'\"function%20play(e){window.JSInterface.playVideo(e)}for(var%20sources=document.getElementsByTagName(\\\\\"source\\\\\"),final=\\\\\"<p>Please%20click%20on%20video%20you%20want%20to%20play:</p><br>\\\\\",i=0;i<sources.length;i++)final+=\\\\\"<a%20href=\\'#\\'%20onclick=\\'play(this.innerHTML);\\'>\\\\\"+sources[i].src+\\\\\"</a><br>\\\\\";document.body.innerHTML=final;\"'},t=!0;if(\"object\"==typeof%20this.artoo&&(artoo.settings.reload||(artoo.log.verbose(\"artoo%20already%20exists%20within%20this%20page.%20No%20need%20to%20inject%20him%20again.\"),artoo.loadSettings(e),artoo.exec(),t=!1)),t){var%20i=document.getElementsByTagName(\"body\")[0];i||(i=document.createElement(\"body\"),document.firstChild.appendChild(i));var%20o=document.createElement(\"script\");console.log(\"artoo.js%20is%20loading...\"),o.src=\"//medialab.github.io/artoo/public/dist/artoo-latest.min.js\",o.type=\"text/javascript\",o.id=\"artoo_injected_script\",o.setAttribute(\"settings\",JSON.stringify(e)),i.appendChild(o)}}).call(this);");
         }
         return super.onOptionsItemSelected(item);
     }
